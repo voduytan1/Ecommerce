@@ -85,6 +85,12 @@ export const cancelOrder = async (req: Request, res: Response) => {
                 status: OrderEventStatus.CANCELLED
             }
         });
+        await prismaClient.orderEvent.create({
+            data: {
+                orderId: order.id,
+                status: OrderEventStatus.CANCELLED
+            }
+        });
         res.json(order);
     }catch{
         throw new NotFoundException("Order not found", ErrorCode.ORDER_NOT_FOUND);
@@ -108,3 +114,69 @@ export const getOrderById = async (req: Request, res: Response) => {
         throw new NotFoundException("Order not found", ErrorCode.ORDER_NOT_FOUND);
     }
 };
+
+export const listAllOrders = async (req: Request, res: Response) => {
+    // Define the type with optional status property
+    let whereClause: { status?: OrderEventStatus } = {};
+    
+    const status = req.params.status;
+    if (status && Object.values(OrderEventStatus).includes(status as OrderEventStatus)) {
+        whereClause = {
+            status: status as OrderEventStatus
+        };
+    }
+    
+    const orders = await prismaClient.order.findMany({
+        where: whereClause,
+        skip: +((req.query.skip as string) ?? 0),
+        take: 5
+    });
+    
+    res.json(orders);
+}  
+
+export const changeStatus = async (req: Request, res: Response) => {
+    try{
+        const order = await prismaClient.order.update({
+            where: {
+                id: +req.params.id
+            },
+            data:{
+                status: req.body.status
+            }
+        });
+        await prismaClient.orderEvent.create({
+            data: {
+                orderId: order.id,
+                status: req.body.status
+            }
+        });
+        res.json(order);
+    }catch(error)
+    {
+        throw new NotFoundException("Order not found", ErrorCode.ORDER_NOT_FOUND,error);
+    }
+}
+
+export const listUserOrders = async (req: Request, res: Response) => {
+
+    let whereClause: { userId: number; status?: OrderEventStatus } = {
+        userId: +req.params.id
+    };
+    
+    const status = req.params.status;
+    if (status && Object.values(OrderEventStatus).includes(status as OrderEventStatus)) {
+        whereClause = {
+            ...whereClause,
+            status: status as OrderEventStatus
+        }
+    }
+    
+    const orders = await prismaClient.order.findMany({
+        where: whereClause,
+        skip: +((req.query.skip as string) ?? 0),
+        take: 5
+    });
+    
+    res.json(orders);
+}
