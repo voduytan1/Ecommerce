@@ -45,3 +45,24 @@ Uniform Interface: Các API có giao diện thống nhất, giúp dễ dàng tru
 Layered System: Kiến trúc có thể được chia thành các lớp để tăng cường tính mở rộng và bảo mật.
 
 ## 2. So sánh với việc trả về view-engine
+** RESTful API **
+- Phân chia rõ ràng giữa frontend và backend
+- Không lưu trạng thái: Mỗi yêu cầu chứa tất cả thông tin cần thiết
+- trả về dữ liệu thô (thường là JSON) thay vì HTML đã định dạng
+- Có thể phục vụ nhiều loại client (web, di động, IoT)
+
+** View-Engine **
+- Render phía máy chủ: HTML được tạo ra trên máy chủ
+- Sử dụng tệp mẫu với placeholder cho nội dung động
+- Máy chủ xử lý yêu cầu và trả về HTML hoàn chỉnh
+
+** Ưu điểm của RESTful API **
+- Linh hoạt: Frontend có thể được phát triển độc lập bằng bất kỳ framework nào
+- Khả năng mở rộng: Dễ dàng mở rộng vì backend và frontend có thể mở rộng riêng biệt
+- Khả năng tái sử dụng: Cùng một API có thể phục vụ web, di động và tích hợp bên thứ ba
+- Hiệu suất: Có thể hiệu quả hơn vì chỉ truyền dữ liệu tối thiểu
+
+** Nhược điểm của RESTful API **
+- Tối ưu SEO phức tạp hơn: Khó khăn trong việc tối ưu SEO cho ứng dụng client-side rendering
+- Tải trang chậm ban đầu: SPA sử dụng REST API thường cần thời gian tải ban đầu dài hơn
+- Over-fetching: Trả về nhiều dữ liệu hơn mức cần thiết khi client chỉ cần một phần thông tin
