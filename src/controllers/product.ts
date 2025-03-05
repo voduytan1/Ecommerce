@@ -68,3 +68,20 @@ export const getProductById = async (req: Request, res: Response) => {
         throw new NotFoundException("Product not found", ErrorCode.PRODUCT_NOT_FOUND)
     }
 }
+
+export const searchProduct = async (req: Request, res: Response) => {
+    const product = await prismaClient.product.findMany({
+        where: {
+            name: {
+                search: req.query.q?.toString()
+            },
+            description: {
+                search: req.query.q?.toString()
+            },
+            tags: {
+                search: req.query.q?.toString()
+            }
+        }
+    });
+    res.json(product);
+}
