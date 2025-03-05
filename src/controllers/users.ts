@@ -69,7 +69,6 @@ export const updateUser = async (req: Request, res: Response) => {
         id: validatedData.defaultShippingAddress,
       },
     });
-
   } catch (error) {
     throw new NotFoundException("User not found", ErrorCode.USER_NOT_FOUND);
   }
@@ -79,7 +78,6 @@ export const updateUser = async (req: Request, res: Response) => {
       ErrorCode.ADDRESS_DOES_NOT_BELONG
     );
   }
-
 
   if (validatedData.defaultBillingAddress === null) {
     throw new NotFoundException(
@@ -93,7 +91,6 @@ export const updateUser = async (req: Request, res: Response) => {
         id: validatedData.defaultBillingAddress,
       },
     });
-
   } catch (error) {
     throw new NotFoundException("User not found", ErrorCode.USER_NOT_FOUND);
   }
@@ -103,8 +100,6 @@ export const updateUser = async (req: Request, res: Response) => {
       ErrorCode.ADDRESS_DOES_NOT_BELONG
     );
   }
-
-
 
   const updateData: any = {
     ...validatedData,
@@ -129,4 +124,43 @@ export const updateUser = async (req: Request, res: Response) => {
     data: updateData,
   });
   res.json(updatedUser);
+};
+
+export const listUsers = async (req: Request, res: Response) => {
+  const users = await prismaClient.user.findMany({
+    skip: +((req.query.skip as string) ?? 0),
+    take: 5,
+  });
+  res.json(users);
+};
+
+export const getUserById = async (req: Request, res: Response) => {
+  try {
+    const user = await prismaClient.user.findFirstOrThrow({
+      where: {
+        id: +req.params.id, // '+' operator convert string to number
+      },
+      include: {
+        addresses: true,
+      },
+    });
+    res.json(user);
+  } catch (error) {
+    throw new NotFoundException("User not found", ErrorCode.USER_NOT_FOUND);
+  }
+};
+export const changeUserRole = async (req: Request, res: Response) => {
+  try {
+    const user = await prismaClient.user.update({
+      where: {
+        id: +req.params.id, // '+' operator convert string to number
+      },
+      data: {
+        role: req.body.role,
+      },
+    });
+    res.json(user);
+  } catch (error) {
+    throw new NotFoundException("User not found", ErrorCode.USER_NOT_FOUND);
+  }
 };
