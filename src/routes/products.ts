@@ -18,7 +18,7 @@ const productsRoutes = Router();
  *     summary: Tạo sản phẩm mới (Chỉ Admin)
  *     tags: [Products]
  *     security:
- *       - tokenAuth: []
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -65,7 +65,7 @@ productsRoutes.post('/',[authMiddleware, adminMiddleware],errorHandler(createPro
  *     summary: Cập nhật sản phẩm (Chỉ Admin)
  *     tags: [Products]
  *     security:
- *       - tokenAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -111,7 +111,7 @@ productsRoutes.put('/:id',[authMiddleware, adminMiddleware],errorHandler(updateP
  *     summary: Xóa sản phẩm (Chỉ Admin)
  *     tags: [Products]
  *     security:
- *       - tokenAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -142,7 +142,7 @@ productsRoutes.delete('/:id',[authMiddleware, adminMiddleware],errorHandler(dele
  *     summary: Lấy danh sách sản phẩm có phân trang (Chỉ Admin)
  *     tags: [Products]
  *     security:
- *       - tokenAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: skip
@@ -177,7 +177,7 @@ productsRoutes.get('/',[authMiddleware, adminMiddleware],errorHandler(listProduc
  *     summary: Tìm kiếm sản phẩm
  *     tags: [Products]
  *     security:
- *       - tokenAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: q

@@ -18,7 +18,7 @@ const cartRoutes = Router();
  *     summary: Thêm sản phẩm vào giỏ hàng
  *     tags: [Cart]
  *     security:
- *       - tokenAuth: []
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -57,7 +57,7 @@ cartRoutes.post("/", [authMiddleware], errorHandler(addItemToCart));
  *     summary: Lấy giỏ hàng của người dùng hiện tại
  *     tags: [Cart]
  *     security:
- *       - tokenAuth: []
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Giỏ hàng của người dùng
@@ -82,7 +82,7 @@ cartRoutes.get("/", [authMiddleware], errorHandler(getCart));
  *     summary: Xóa sản phẩm khỏi giỏ hàng
  *     tags: [Cart]
  *     security:
- *       - tokenAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -113,7 +113,7 @@ cartRoutes.delete("/:id", [authMiddleware], errorHandler(deleteItemFromCart));
  *     summary: Thay đổi số lượng sản phẩm trong giỏ hàng
  *     tags: [Cart]
  *     security:
- *       - tokenAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

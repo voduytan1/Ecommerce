@@ -3,11 +3,13 @@ import { PORT } from './secret';
 import rootRoutes from './routes';
 import { PrismaClient } from '@prisma/client';
 import { errorMiddleware } from './middlewares/errors';
-import { count } from 'console';
+import { setupSwagger } from './swagger';
+
 const app: Express = express();
 
 app.use(express.json());
 
+setupSwagger(app);
 app.use('/api', rootRoutes);
 
 export const prismaClient = new PrismaClient({

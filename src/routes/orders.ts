@@ -19,7 +19,7 @@ const ordersRoutes = Router();
  *     summary: Tạo đơn hàng mới từ giỏ hàng
  *     tags: [Orders]
  *     security:
- *       - tokenAuth: []
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Đơn hàng đã được tạo
@@ -41,7 +41,7 @@ ordersRoutes.post("/", [authMiddleware], errorHandler(createOrder));
  *     summary: Lấy danh sách đơn hàng của người dùng hiện tại
  *     tags: [Orders]
  *     security:
- *       - tokenAuth: []
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Danh sách đơn hàng
@@ -64,7 +64,7 @@ ordersRoutes.get("/", [authMiddleware], errorHandler(listOrder));
  *     summary: Hủy đơn hàng
  *     tags: [Orders]
  *     security:
- *       - tokenAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -93,7 +93,7 @@ ordersRoutes.put("/:id/cancel", [authMiddleware], errorHandler(cancelOrder));
  *     summary: Lấy danh sách tất cả đơn hàng (Chỉ Admin)
  *     tags: [Orders]
  *     security:
- *       - tokenAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: skip
@@ -122,7 +122,7 @@ ordersRoutes.get("/index", [authMiddleware, adminMiddleware], errorHandler(listA
  *     summary: Lấy danh sách đơn hàng của một người dùng cụ thể (Chỉ Admin)
  *     tags: [Orders]
  *     security:
- *       - tokenAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -157,7 +157,7 @@ ordersRoutes.get("/users/:id", [authMiddleware, adminMiddleware], errorHandler(l
  *     summary: Thay đổi trạng thái đơn hàng (Chỉ Admin)
  *     tags: [Orders]
  *     security:
- *       - tokenAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -199,7 +199,7 @@ ordersRoutes.put("/:id/status", [authMiddleware, adminMiddleware], errorHandler(
  *     summary: Lấy thông tin chi tiết đơn hàng
  *     tags: [Orders]
  *     security:
- *       - tokenAuth: []
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

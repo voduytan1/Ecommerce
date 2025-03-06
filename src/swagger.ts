@@ -35,7 +35,7 @@ const options: swaggerJsdoc.Options = {
     './src/routes/*.ts',
     './src/controllers/*.ts',
     './src/schema/*.ts',
-    './src/swagger-schemas.ts', // Tạo file này để chứa các schema
+    './src/swagger-schemas.ts', 
   ],
 };
 
