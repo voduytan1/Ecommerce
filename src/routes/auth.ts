@@ -107,7 +107,7 @@ authRoutes.post('/login', errorHandler(login));
  *     summary: Lấy thông tin người dùng hiện tại
  *     tags: [Authentication]
  *     security:
- *       - tokenAuth: []
+ *       - bearerAuth: []
  *       200:
  *         description: Thông tin người dùng hiện tại
  *         content:
