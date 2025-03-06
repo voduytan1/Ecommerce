@@ -10,7 +10,6 @@ export const addAddress = async (req: Request, res: Response) => {
   ////////////////////////
   const ModifiedAddressSchema = AddressSchema.omit({ userId: true });
 
-  // Validate the request body against the modified schema
   ModifiedAddressSchema.parse(req.body);
   if (!req.user) {
     throw new NotFoundException("User not found", ErrorCode.USER_NOT_FOUND);
