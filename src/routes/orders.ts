@@ -8,7 +8,7 @@ import adminMiddleware from "../middlewares/admin";
  * @openapi
  * tags:
  *   name: Orders
- *   description: API quản lý đơn hàng
+ *   description: "API quản lý đơn hàng"
  */
 const ordersRoutes = Router();
 
@@ -16,21 +16,21 @@ const ordersRoutes = Router();
  * @openapi
  * /orders:
  *   post:
- *     summary: Tạo đơn hàng mới từ giỏ hàng
+ *     summary: "Tạo đơn hàng mới từ giỏ hàng"
  *     tags: [Orders]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Đơn hàng đã được tạo
+ *         description: "Đơn hàng đã được tạo"
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Order'
  *       400:
- *         description: Giỏ hàng trống hoặc không có địa chỉ giao hàng
- *      401:
- *        description: token không hợp lệ
+ *         description: "Giỏ hàng trống hoặc không có địa chỉ giao hàng"
+ *       401:
+ *         description: "Token không hợp lệ"
  */
 ordersRoutes.post("/", [authMiddleware], errorHandler(createOrder));
 
@@ -38,21 +38,21 @@ ordersRoutes.post("/", [authMiddleware], errorHandler(createOrder));
  * @openapi
  * /orders:
  *   get:
- *     summary: Lấy danh sách đơn hàng của người dùng hiện tại
+ *     summary: "Lấy danh sách đơn hàng của người dùng hiện tại"
  *     tags: [Orders]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Danh sách đơn hàng
+ *         description: "Danh sách đơn hàng"
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Order'
- *      401:
- *        description: token không hợp lệ
+ *       401:
+ *         description: "token không hợp lệ"
  */
 ordersRoutes.get("/", [authMiddleware], errorHandler(listOrder));
 
@@ -61,7 +61,7 @@ ordersRoutes.get("/", [authMiddleware], errorHandler(listOrder));
  * @openapi
  * /orders/{id}/cancel:
  *   put:
- *     summary: Hủy đơn hàng
+ *     summary: "Hủy đơn hàng"
  *     tags: [Orders]
  *     security:
  *       - bearerAuth: []
@@ -71,18 +71,18 @@ ordersRoutes.get("/", [authMiddleware], errorHandler(listOrder));
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID đơn hàng
+ *         description: "ID đơn hàng"
  *     responses:
  *       200:
- *         description: Đơn hàng đã được hủy
+ *         description: "Đơn hàng đã được hủy"
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Order'
  *       401:
- *      description: token không hợp lệ
+ *         description: "token không hợp lệ"
  *       404:
- *         description: Không tìm thấy đơn hàng
+ *         description: "Không tìm thấy đơn hàng"
  */
 ordersRoutes.put("/:id/cancel", [authMiddleware], errorHandler(cancelOrder));
 
@@ -90,7 +90,7 @@ ordersRoutes.put("/:id/cancel", [authMiddleware], errorHandler(cancelOrder));
  * @openapi
  * /orders/index:
  *   get:
- *     summary: Lấy danh sách tất cả đơn hàng (Chỉ Admin)
+ *     summary: "Lấy danh sách tất cả đơn hàng (Chỉ Admin)"
  *     tags: [Orders]
  *     security:
  *       - bearerAuth: []
@@ -100,18 +100,18 @@ ordersRoutes.put("/:id/cancel", [authMiddleware], errorHandler(cancelOrder));
  *         schema:
  *           type: integer
  *           default: 0
- *         description: Số lượng bản ghi bỏ qua (phân trang)
+ *         description: "Số lượng bản ghi bỏ qua (phân trang)"
  *     responses:
  *       200:
- *         description: Danh sách đơn hàng
+ *         description: "Danh sách đơn hàng"
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Order'
- *      401:
- *       description: token không hợp lệ hoặc không phải admin
+ *       401:
+ *         description: "token không hợp lệ hoặc không phải admin"
  */
 ordersRoutes.get("/index", [authMiddleware, adminMiddleware], errorHandler(listAllOrders));
 
@@ -119,7 +119,7 @@ ordersRoutes.get("/index", [authMiddleware, adminMiddleware], errorHandler(listA
  * @openapi
  * /orders/users/{id}:
  *   get:
- *     summary: Lấy danh sách đơn hàng của một người dùng cụ thể (Chỉ Admin)
+ *     summary: "Lấy danh sách đơn hàng của một người dùng cụ thể (Chỉ Admin)"
  *     tags: [Orders]
  *     security:
  *       - bearerAuth: []
@@ -129,24 +129,24 @@ ordersRoutes.get("/index", [authMiddleware, adminMiddleware], errorHandler(listA
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID người dùng
+ *         description: "ID người dùng"
  *       - in: query
  *         name: skip
  *         schema:
  *           type: integer
  *           default: 0
- *         description: Số lượng bản ghi bỏ qua (phân trang)
+ *         description: "Số lượng bản ghi bỏ qua (phân trang)"
  *     responses:
  *       200:
- *         description: Danh sách đơn hàng của người dùng
+ *         description: "Danh sách đơn hàng của người dùng"
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Order'
- *      401:
- *          description: token không hợp lệ hoặc không phải admin
+ *       401:
+ *         description: "token không hợp lệ hoặc không phải admin"
  */
 ordersRoutes.get("/users/:id", [authMiddleware, adminMiddleware], errorHandler(listUserOrders));
 
@@ -154,7 +154,7 @@ ordersRoutes.get("/users/:id", [authMiddleware, adminMiddleware], errorHandler(l
  * @openapi
  * /orders/{id}/status:
  *   put:
- *     summary: Thay đổi trạng thái đơn hàng (Chỉ Admin)
+ *     summary: "Thay đổi trạng thái đơn hàng (Chỉ Admin)"
  *     tags: [Orders]
  *     security:
  *       - bearerAuth: []
@@ -164,7 +164,7 @@ ordersRoutes.get("/users/:id", [authMiddleware, adminMiddleware], errorHandler(l
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID đơn hàng
+ *         description: "ID đơn hàng"
  *     requestBody:
  *       required: true
  *       content:
@@ -176,19 +176,19 @@ ordersRoutes.get("/users/:id", [authMiddleware, adminMiddleware], errorHandler(l
  *             properties:
  *               status:
  *                 type: string
- *                 enum: [PENDING, SHIPPED, DELIVERED, CANCELLED]
- *                 example: "SHIPPED"
+ *                 enum: [PENDING, ACCEPTED, OUT_FOR_DELIVERY, DELIVERED, CANCELLED]
+ *                 example: "ACCEPTED"
  *     responses:
  *       200:
- *         description: Trạng thái đơn hàng đã được cập nhật
+ *         description: "Trạng thái đơn hàng đã được cập nhật"
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Order'
  *       401:
- *      description: token không hợp lệ hoặc không phải admin
+ *         description: "token không hợp lệ hoặc không phải admin"
  *       404:
- *         description: Không tìm thấy đơn hàng
+ *         description: "Không tìm thấy đơn hàng"
  */
 ordersRoutes.put("/:id/status", [authMiddleware, adminMiddleware], errorHandler(changeStatus));
 
@@ -196,7 +196,7 @@ ordersRoutes.put("/:id/status", [authMiddleware, adminMiddleware], errorHandler(
  * @openapi
  * /orders/{id}:
  *   get:
- *     summary: Lấy thông tin chi tiết đơn hàng
+ *     summary: "Lấy thông tin chi tiết đơn hàng"
  *     tags: [Orders]
  *     security:
  *       - bearerAuth: []
@@ -206,10 +206,10 @@ ordersRoutes.put("/:id/status", [authMiddleware, adminMiddleware], errorHandler(
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID đơn hàng
+ *         description: "ID đơn hàng"
  *     responses:
  *       200:
- *         description: Chi tiết đơn hàng
+ *         description: "Chi tiết đơn hàng"
  *         content:
  *           application/json:
  *             schema:
@@ -226,9 +226,9 @@ ordersRoutes.put("/:id/status", [authMiddleware, adminMiddleware], errorHandler(
  *                       items:
  *                         $ref: '#/components/schemas/OrderEvent'
  *       401:
- *       description: token không hợp lệ
+ *         description: "token không hợp lệ"
  *       404:
- *         description: Không tìm thấy đơn hàng
+ *         description: "Không tìm thấy đơn hàng"
  */
 ordersRoutes.get("/:id", [authMiddleware], errorHandler(getOrderById));
 

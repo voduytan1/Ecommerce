@@ -56,11 +56,11 @@
  *           description: ID địa chỉ
  *         lineOne:
  *           type: string
- *           description: Dòng địa chỉ 1
+ *           description: Số nhà
  *         lineTwo:
  *           type: string
  *           nullable: true
- *           description: Dòng địa chỉ 2
+ *           description: Tên đường, phường, quận, huyện
  *         city:
  *           type: string
  *           description: Thành phố
@@ -105,7 +105,7 @@
  *           description: Địa chỉ giao hàng
  *         status:
  *           type: string
- *           enum: [PENDING, SHIPPED, DELIVERED, CANCELLED]
+ *           enum: [  PENDING, ACCEPTED, OUT_FOR_DELIVERY, DELIVERED, CANCELLED]
  *           description: Trạng thái đơn hàng
  *     OrderEvent:
  *       type: object

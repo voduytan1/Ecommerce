@@ -7,7 +7,7 @@ import authMiddleware from "../middlewares/auth";
  * @openapi
  * tags:
  *   name: Cart
- *   description: API quản lý giỏ hàng
+ *   description: "API quản lý giỏ hàng"
  */
 const cartRoutes = Router();
 
@@ -15,7 +15,7 @@ const cartRoutes = Router();
  * @openapi
  * /carts:
  *   post:
- *     summary: Thêm sản phẩm vào giỏ hàng
+ *     summary: "Thêm sản phẩm vào giỏ hàng"
  *     tags: [Cart]
  *     security:
  *       - bearerAuth: []
@@ -38,15 +38,15 @@ const cartRoutes = Router();
  *                 example: 2
  *     responses:
  *       200:
- *         description: Sản phẩm đã được thêm vào giỏ hàng
+ *         description: "Sản phẩm đã được thêm vào giỏ hàng"
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/CartItem'
  *       401:
- *         description: Không tìm thấy token, token hết hạn hoặc không hợp lệ
+ *         description: "Không tìm thấy token, token hết hạn hoặc không hợp lệ"
  *       404:
- *         description: Không tìm thấy sản phẩm
+ *         description: "Không tìm thấy sản phẩm"
  */
 cartRoutes.post("/", [authMiddleware], errorHandler(addItemToCart));
 
@@ -54,13 +54,13 @@ cartRoutes.post("/", [authMiddleware], errorHandler(addItemToCart));
  * @openapi
  * /carts:
  *   get:
- *     summary: Lấy giỏ hàng của người dùng hiện tại
+ *     summary: "Lấy giỏ hàng của người dùng hiện tại"
  *     tags: [Cart]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Giỏ hàng của người dùng
+ *         description: "Giỏ hàng của người dùng"
  *         content:
  *           application/json:
  *             schema:
@@ -79,7 +79,7 @@ cartRoutes.get("/", [authMiddleware], errorHandler(getCart));
  * @openapi
  * /carts/{id}:
  *   delete:
- *     summary: Xóa sản phẩm khỏi giỏ hàng
+ *     summary: "Xóa sản phẩm khỏi giỏ hàng"
  *     tags: [Cart]
  *     security:
  *       - bearerAuth: []
@@ -89,20 +89,16 @@ cartRoutes.get("/", [authMiddleware], errorHandler(getCart));
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID mục giỏ hàng
+ *         description: "ID mục giỏ hàng"
  *     responses:
  *       200:
- *         description: Sản phẩm đã được xóa khỏi giỏ hàng
+ *         description: "Sản phẩm đã được xóa khỏi giỏ hàng"
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "Item deleted from cart"
- *      401:
- *        description: Không tìm thấy token, token hết hạn hoặc không hợp lệ
+ *               $ref: '#/components/schemas/CartItem'  
+ *       401:
+ *         description: "Không tìm thấy token, token hết hạn hoặc không hợp lệ"
  */
 cartRoutes.delete("/:id", [authMiddleware], errorHandler(deleteItemFromCart));
 
@@ -110,7 +106,7 @@ cartRoutes.delete("/:id", [authMiddleware], errorHandler(deleteItemFromCart));
  * @openapi
  * /carts/{id}:
  *   post:
- *     summary: Thay đổi số lượng sản phẩm trong giỏ hàng
+ *     summary: "Thay đổi số lượng sản phẩm trong giỏ hàng"
  *     tags: [Cart]
  *     security:
  *       - bearerAuth: []
@@ -120,7 +116,7 @@ cartRoutes.delete("/:id", [authMiddleware], errorHandler(deleteItemFromCart));
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID mục giỏ hàng
+ *         description: "ID mục giỏ hàng"
  *     requestBody:
  *       required: true
  *       content:
@@ -136,13 +132,13 @@ cartRoutes.delete("/:id", [authMiddleware], errorHandler(deleteItemFromCart));
  *                 example: 3
  *     responses:
  *       200:
- *         description: Số lượng đã được cập nhật
+ *         description: "Số lượng đã được cập nhật"
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/CartItem'
- *      401:
- *       description: Không tìm thấy token, token hết hạn hoặc không hợp lệ
+ *       401:
+ *         description: "Không tìm thấy token, token hết hạn hoặc không hợp lệ"
  */
 cartRoutes.post("/:id", [authMiddleware], errorHandler(changeQuantity));
 

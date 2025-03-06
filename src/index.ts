@@ -13,7 +13,6 @@ setupSwagger(app);
 app.use('/api', rootRoutes);
 
 export const prismaClient = new PrismaClient({
-    log: ['query']
 }).$extends({
     result:{
         address:{
@@ -38,4 +37,5 @@ app.use(errorMiddleware);
 
 app.listen(PORT, () => {
     console.log('Server is running on port 3000');
+    console.log(`Swagger documentation available at http://localhost:${PORT}/api-docs`);
 })

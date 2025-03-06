@@ -16,7 +16,7 @@ const authRoutes: Router = Router();
  * @openapi
  * /auth/signup:
  *   post:
- *     summary: Đăng ký tài khoản mới
+ *     summary: "Đăng ký tài khoản mới"
  *     tags: [Authentication]
  *     requestBody:
  *       required: true
@@ -43,23 +43,22 @@ const authRoutes: Router = Router();
  *                 example: "password123"
  *     responses:
  *       200:
- *         description: Đăng ký thành công
+ *         description: "Đăng ký thành công"
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
  *       400:
- *         description: Người dùng đã tồn tại
+ *         description: "Người dùng đã tồn tại"
  *       422:
- *         description: Dữ liệu không hợp lệ
+ *         description: "Dữ liệu không hợp lệ"
  */
 authRoutes.post('/signup', errorHandler(signup));
-
 /**
  * @openapi
  * /auth/login:
  *   post:
- *     summary: Đăng nhập
+ *     summary: "Đăng nhập"
  *     tags: [Authentication]
  *     requestBody:
  *       required: true
@@ -81,7 +80,7 @@ authRoutes.post('/signup', errorHandler(signup));
  *                 example: "password123"
  *     responses:
  *       200:
- *         description: Đăng nhập thành công
+ *         description: "Đăng nhập thành công"
  *         content:
  *           application/json:
  *             schema:
@@ -93,29 +92,29 @@ authRoutes.post('/signup', errorHandler(signup));
  *                   type: string
  *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *       404:
- *         description: Không tìm thấy người dùng
+ *         description: "Không tìm thấy người dùng"
  *       400:
- *         description: Mật khẩu không đúng
+ *         description: "Mật khẩu không đúng"
  */
 authRoutes.post('/login', errorHandler(login));
-
 
 /**
  * @openapi
  * /auth/me:
  *   get:
- *     summary: Lấy thông tin người dùng hiện tại
+ *     summary: "Lấy thông tin người dùng hiện tại"
  *     tags: [Authentication]
  *     security:
  *       - bearerAuth: []
+ *     responses:
  *       200:
- *         description: Thông tin người dùng hiện tại
+ *         description: "Thông tin người dùng hiện tại"
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
  *       401:
- *         description: Không được phép truy cập hoặc token không hợp lệ
+ *         description: "Không được phép truy cập hoặc token không hợp lệ"
  */
 authRoutes.get('/me', [authMiddleware], errorHandler(me));
 
