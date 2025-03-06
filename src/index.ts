@@ -10,6 +10,8 @@ const app: Express = express();
 
 app.use(express.json());
 
+setupSwagger(app);
+
 app.use(morganMiddleware);
 
 app.use('/api', rootRoutes);
