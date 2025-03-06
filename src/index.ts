@@ -4,12 +4,14 @@ import rootRoutes from './routes';
 import { PrismaClient } from '@prisma/client';
 import { errorMiddleware } from './middlewares/errors';
 import { setupSwagger } from './swagger';
+import morganMiddleware from './middlewares/morganMiddleware';
 
 const app: Express = express();
 
 app.use(express.json());
 
-setupSwagger(app);
+app.use(morganMiddleware);
+
 app.use('/api', rootRoutes);
 
 export const prismaClient = new PrismaClient({
