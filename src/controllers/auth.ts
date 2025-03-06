@@ -9,6 +9,7 @@ import { ErrorCode } from '../exceptions/root';
 import { UnprocessableEntity } from '../exceptions/validation';
 import { SignUpSchema } from '../schema/users';
 import { NotFoundException } from '../exceptions/not-found';
+import logger from '../middlewares/logger';
 
 export const signup = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -26,6 +27,7 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
                 name
             }
         });
+        logger.info(`User ${user.email} created`);
         res.json(user);
     } catch (error: any) {
         next(new UnprocessableEntity('Unprocessable Entity', error?.issues, ErrorCode.UNPROCESSABLE_ENTITY));
@@ -47,9 +49,11 @@ export const login = async (req: Request, res: Response) => {
         userId: user.id,
 
     }, JWT_SECRET);
+    logger.info(`User ${user.email} logged in`);
     res.json({ user, token });
 }
 
 export const me = async (req: Request, res: Response) => {
+    logger.info(`User ${req.user?.email} fetched`);
     res.json(req.user);
 }

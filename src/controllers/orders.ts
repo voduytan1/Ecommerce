@@ -15,7 +15,7 @@ export const createOrder = async (req: Request, res: Response) => {
         });
         
         if(cartItems.length === 0){
-            return res.json({message: "Cart is empty"});
+            return res.status(400).json({ message: "Cart is empty" });
         }
         
         const price = cartItems.reduce((prev, current)=>{
@@ -23,7 +23,7 @@ export const createOrder = async (req: Request, res: Response) => {
         }, 0);
         
         if (req.user!.defaultShippingAddress === null) {
-            return res.json({ message: "Default shipping address is not set" });
+            return res.status(400).json({ message: "Default shipping address is not set" });
         }
         
         const address = await tx.address.findFirst({
@@ -33,7 +33,7 @@ export const createOrder = async (req: Request, res: Response) => {
         });
         
         if (!address) {
-            return res.json({ message: "Shipping address not found" });
+            return res.status(400).json({ message: "Shipping address not found" });
         }
         
         const order = await tx.order.create({

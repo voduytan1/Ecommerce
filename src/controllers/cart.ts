@@ -4,6 +4,8 @@ import { NotFoundException } from '../exceptions/not-found';
 import { ErrorCode } from '../exceptions/root';
 import { Product } from '@prisma/client';
 import { prismaClient } from '..';
+import logger from '../middlewares/logger';
+import { log } from 'console';
 
 
 export const addItemToCart = async (req: Request, res: Response) => {
@@ -25,6 +27,7 @@ export const addItemToCart = async (req: Request, res: Response) => {
             quantity: validatedData.quantity
         }
     });
+    logger.info(`Product ${product.name} added to cart`);
     res.json(cart);
 };
 
@@ -34,6 +37,7 @@ export const deleteItemFromCart = async (req: Request, res: Response) => {
             id: +req.params.id
         }
     });
+    logger.info(`Item deleted from cart`);
     res.json({message: "Item deleted from cart"});
 };
 
@@ -47,6 +51,7 @@ export const changeQuantity = async (req: Request, res: Response) => {
             quantity: validatedData.quantity
         }
     });
+    logger.info(`product ${req.params.id} change quantity into ${validatedData.quantity}`);
     res.json(updatedCart);
 
 };
@@ -60,5 +65,6 @@ export const getCart = async (req: Request, res: Response) => {
             product: true
         }
     });
+    logger.info(`Cart fetched`);
     res.json(cart);
 };
